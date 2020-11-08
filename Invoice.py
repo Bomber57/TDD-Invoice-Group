@@ -9,6 +9,10 @@ class Invoice:
         self.items['discount'] = discount
         return self.items
 
+    def removeProduct(self, toRemove, products):
+        del products[toRemove]
+        return products
+
     def totalImpurePrice(self, products):
         total_impure_price = 0
         for k, v in products.items():
@@ -27,6 +31,12 @@ class Invoice:
     def totalPurePrice(self, products):
         total_pure_price = self.totalImpurePrice(products)-self.totalDiscount(products)
         return total_pure_price
+
+    def finalPrice(self, products, sales_tax):
+        total_pure_price = self.totalPurePrice(products)
+        final_price = total_pure_price + (total_pure_price * sales_tax)
+        final_price = round(final_price, 2)
+        return final_price
 
     def inputAnswer(self, input_value):
         while True:
